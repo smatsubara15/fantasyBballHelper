@@ -1,0 +1,4 @@
+- Avg Against certain team
+- Within 3 days of injury
+- Opposing team statistics
+- Back to back games

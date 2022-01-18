@@ -1,0 +1,8 @@
+- Some problems with b2b avg numbers (they are over 100) DONE
+- Number fire projection data has been deleted
+- Issues with days on weeks when there are no teams that play (Thanksgiving and Christmas)
+    - Fixed for now by manually inserting the date into the date csv. 
+-Filter Out Players DONE
+
+- Accuracy is very low (36%) check if using players average points will give us a better prediction
+- ML Improvement cheat cheat: https://machinelearningmastery.com/machine-learning-performance-improvement-cheat-sheet/
