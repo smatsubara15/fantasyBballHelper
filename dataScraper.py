@@ -24,55 +24,67 @@ def putPlayersIn():
     return
 
 def scrapeESPNFantasyData():
-    driver = webdriver.Chrome('/Users/scott/chromedriver')
+    # driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome('/Users/scottsmacbook/chromedriver')
     driver.get('https://www.espn.com/')
     time.sleep(1)
 
     ##Open Initial Log In Location
-    search_box = driver.find_element_by_id('global-user-trigger')
+    search_box = driver.find_element(By.ID, "global-user-trigger")
+    
+    #search_box = driver.find_element_by_id('global-user-trigger')
     search_box.click()
     time.sleep(1)
     print('Open Log In Tab')
 
     ##Click on the Log In location
-    nextbox = driver.find_element_by_xpath("//a[@data-affiliatename='espn']")
+    #nextbox = driver.find_element_by_xpath("//a[@data-affiliatename='espn']")
+    nextbox = driver.find_element(By.XPATH,"//a[@data-affiliatename='espn']")
     nextbox.click()
     print('Click Login')
 
     ##Switch to iFrame to enter log in credentials
     time.sleep(1)
     driver.switch_to.frame("disneyid-iframe")
-    username = driver.find_element_by_xpath("//input[@placeholder='Username or Email Address']")
+    #username = driver.find_element_by_xpath("//input[@placeholder='Username or Email Address']")
+    username = driver.find_element(By.XPATH,"//input[@placeholder='Username or Email Address']")
     print('Switching to iFrame')
 
     ##Submit Username and Password
     time.sleep(1)
     username.send_keys('scottmatsubara@gmail.com')
-    password = driver.find_element_by_xpath("//input[@placeholder='Password (case sensitive)']")
+    #password = driver.find_element_by_xpath("//input[@placeholder='Password (case sensitive)']")
+    password = driver.find_element(By.XPATH,"//input[@placeholder='Password (case sensitive)']")
     password.send_keys('bacon1515')
-    time.sleep(1)
     print('Logging In')
+    time.sleep(1)
 
     ##Submit credentials
-    button = driver.find_element_by_xpath("//button[@class='btn btn-primary btn-submit ng-isolate-scope']")
+    # button = driver.find_element_by_xpath("//button[@class='btn btn-primary btn-submit ng-isolate-scope']")
+    button = driver.find_element(By.XPATH,"//button[@class='btn btn-primary btn-submit ng-isolate-scope']")
     button.click()
     driver.page_source
 
     ##Open Link Page
-    time.sleep(1)
-    search_box = driver.find_element_by_xpath("//a[@href='/fantasy/']")
+    time.sleep(10)
+    #search_box = driver.find_element_by_xpath("//a[@href='/fantasy/']")
+    search_box = driver.find_element(By.ID, "global-user-trigger")
     search_box.click()
     print('Going to Fantasy Link')
 
     ##Selecting Fantasy League
     time.sleep(1)
-    leaguego = driver.find_element_by_partial_link_text("MapOTSoul:Yurt7 GhostOfL.S.")
+    #leaguego = driver.find_element_by_partial_link_text("ChiTownShooters Cant4getTheBev")
+
+    #make sure team is first team in menu
+    leaguego = driver.find_element(By.NAME,"&lpos=favorites:nav:team:user:clubhouse:1")
     leaguego.click()
     print('Entering League')
 
     #Open Players Tab
     time.sleep(1)
-    playersgo = driver.find_element_by_xpath("//a[@href='/basketball/players/add?leagueId=1631564033']")
+    # playersgo = driver.find_element_by_xpath("//a[@href='/basketball/players/add?leagueId=1631564033']")
+    playersgo = driver.find_element(By.XPATH,"//a[@href='/basketball/players/add?leagueId=1631564033']")
     playersgo.click()
     print("Opening Players Tab")
 
@@ -94,7 +106,8 @@ def scrapeESPNFantasyData():
         totPts.extend(soup.find_all("div", class_="jsx-2810852873 table--cell total tar sortable"))
         avgPts.extend(soup.find_all("div",class_="jsx-2810852873 table--cell avg tar sortable"))
         time.sleep(1)
-        nextPage = driver.find_element_by_xpath("//button[@class='Button Button--default Button--icon-noLabel Pagination__Button Pagination__Button--next']")
+        #nextPage = driver.find_element_by_xpath("//button[@class='Button Button--default Button--icon-noLabel Pagination__Button Pagination__Button--next']")
+        nextPage = driver.find_element(By.XPATH,"//button[@class='Button Button--default Button--icon-noLabel Pagination__Button Pagination__Button--next']")
         nextPage.click()
         print("Going to Next Page of Players")
         
@@ -187,7 +200,7 @@ def scrapeNumberFireData():
     return projectionsDf[['Name','Projected Avg Pts (ROS)']]
 
 def getBballRefHeaders():
-    url = "https://www.basketball-reference.com/players/j/jamesle01/gamelog/2021/"
+    url = "https://www.basketball-reference.com/players/j/jamesle01/gamelog/2022/"
     html = urlopen(url)
     soup = BeautifulSoup(html, features="lxml")
 

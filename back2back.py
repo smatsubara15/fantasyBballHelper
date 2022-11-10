@@ -1,5 +1,5 @@
 from time import strptime
-from bs4.builder import TreeBuilderRegistry
+#from bs4.builder import TreeBuilderRegistry
 import numpy as np
 import pandas as pd
 import csv
@@ -90,7 +90,7 @@ def getTeams():
 
     # Schedule gotten from: https://www.basketball-reference.com/leagues/NBA_2022_games.html
     # manually exported csv for each month. Can try to automate this.
-    schedule =  pd.read_csv("data/NBASchedule.csv")
+    schedule =  pd.read_csv("data/NBASchedule2023.csv")
 
     # create a new dataframe that we can use to count the number of games per day and to set numerical labels for each day
     gamesPerDay = schedule.groupby('Date',sort=False).size().to_frame('gamesPerDay')
